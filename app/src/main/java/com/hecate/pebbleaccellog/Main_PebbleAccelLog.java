@@ -332,8 +332,10 @@ public class Main_PebbleAccelLog extends ActionBarActivity {
                                     sZ.appendData(new DataPoint(t, accelData.z / 1000.0), false, Integer.MAX_VALUE);
                                     gLog.getViewport().setMinX(Math.max(sX.getHighestValueX() - 60, 0));
                                     gLog.getViewport().setMaxX(sX.getHighestValueX());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                }
+                                catch (Exception e)
+                                {
+                                    Toast.makeText(Main_PebbleAccelLog.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         };
