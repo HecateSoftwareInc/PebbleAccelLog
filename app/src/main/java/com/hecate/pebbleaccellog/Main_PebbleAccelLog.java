@@ -1,6 +1,8 @@
 package com.hecate.pebbleaccellog;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -152,8 +154,20 @@ public class Main_PebbleAccelLog extends ActionBarActivity {
             gLog.getViewport().setMinX(sX.getLowestValueX());
             gLog.getViewport().setMaxX(sX.getHighestValueX());
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            AlertDialog.Builder errorAlert  = new AlertDialog.Builder(this);
+            errorAlert.setMessage(e.getMessage());
+            errorAlert.setTitle("Error");
+            errorAlert.setPositiveButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //dismiss the dialog
+                        }
+                    });
+            errorAlert.setCancelable(true);
+            errorAlert.create().show();
         }
     }
 
@@ -236,7 +250,7 @@ public class Main_PebbleAccelLog extends ActionBarActivity {
                 {
                     sampleCount = 0;
                     bToggleLogging.setText("Stop");
-                    logFileName = new SimpleDateFormat("yyyy_MM_dd-hh_mm_ss").format(new Date());
+                    logFileName = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss").format(new Date());
                     logFullPath = externalDirectory.getAbsolutePath() + "/" + logFileName;
 
                     try {
@@ -421,7 +435,8 @@ public class Main_PebbleAccelLog extends ActionBarActivity {
 
                     out.close();
                     logFile.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
 
